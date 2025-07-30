@@ -34,7 +34,7 @@ export default function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 mb-8">
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -45,21 +45,25 @@ export default function SearchBar({ onSearch, isLoading }: SearchBarProps) {
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
             />
           </div>
-          <Button 
-            type="button" 
-            variant="secondary"
-            text='Filters' 
-            onClick={() => setShowFilters(!showFilters)}
-            icon={
-              <Filter className="w-5 h-5" />
-            }
-          />
-          <Button 
-            type="submit" 
-            variant="default"
-            text={isLoading ? 'Searching...' : 'Search'}
-            disabled={isLoading}
-          />
+          <div className="flex flex-row gap-4 w-full sm:w-auto">
+            <Button
+              type="button" 
+              variant="secondary"
+              text='Filters' 
+              onClick={() => setShowFilters(!showFilters)}
+              icon={
+                <Filter className="w-5 h-5" />
+              }
+              containerStyle="w-full sm:w-auto"
+            />
+            <Button 
+              type="submit" 
+              variant="default"
+              text={isLoading ? 'Searching...' : 'Search'}
+              disabled={isLoading}
+              containerStyle="w-full sm:w-auto"
+            />
+          </div>
         </div>
         
         {showFilters && (
