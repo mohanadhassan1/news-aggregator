@@ -59,10 +59,12 @@ export default function ArticleCard({ article, index }: ArticleCardProps) {
         alt={article.title}
         width={100}
         height={100}
+        unoptimized={true}
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         onError={handleImageError}
         onLoad={handleImageLoad}
         loading="lazy"
+        referrerPolicy="no-referrer"
       />
     );
   };
