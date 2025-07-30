@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Search, Filter } from 'lucide-react';
 import Button from '@/UI/Button';
 import Select from '@/UI/Select';
+import { showToast } from '@/lib/Notifications';
+import { TOAST_TYPES } from '@/enums';
 
 interface SearchBarProps {
   onSearch: (query: string, category: string) => void;
@@ -24,11 +26,25 @@ export default function SearchBar({ onSearch, isLoading }: SearchBarProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!query.trim() && !category) {
+      showToast(TOAST_TYPES.INFO, 'Please enter a search term or select a category.');
+      return;
+    }
+
+    showToast(TOAST_TYPES.SUCCESS, 'Searching news...');
     onSearch(query, category);
   };
 
   const handleCategoryChange = (value: string) => {
     setCategory(value);
+
+    if (value) {
+      showToast(TOAST_TYPES.SUCCESS, `Filter applied: ${value}`);
+      onSearch(query, value);
+    } else {
+      showToast(TOAST_TYPES.INFO, 'Category filter cleared.');
+      onSearch(query, '');
+    }
   };
 
   return (

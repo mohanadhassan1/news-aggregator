@@ -15,7 +15,6 @@ interface ArticleCardProps {
 export default function ArticleCard({ article, index }: ArticleCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (cardRef.current) {
@@ -35,15 +34,6 @@ export default function ArticleCard({ article, index }: ArticleCardProps) {
     }
   }, [index]);
 
-  const handleImageError = () => {
-    console.log('Image failed to load:', article.urlToImage);
-    setImageError(true);
-  };
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
-
   const renderImage = () => {
     if (!article.urlToImage || imageError) {
       return (
@@ -61,8 +51,7 @@ export default function ArticleCard({ article, index }: ArticleCardProps) {
         height={100}
         unoptimized={true}
         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        onError={handleImageError}
-        onLoad={handleImageLoad}
+        onError={() => setImageError(true)}
         loading="lazy"
         referrerPolicy="no-referrer"
       />
