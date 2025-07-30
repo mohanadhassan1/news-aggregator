@@ -1,5 +1,7 @@
 npm install axios date-fns lucide-react
 npm install gsap
+npm install react-toastify
+npm install tailwind-merge
 
 src/
 ├── app/
